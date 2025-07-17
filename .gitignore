@@ -1,0 +1,5 @@
+.classpath
+.project
+sql.proprerties
+./bin/sql.properties
+./src/sql.properties

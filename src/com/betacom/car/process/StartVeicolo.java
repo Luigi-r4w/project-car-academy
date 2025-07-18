@@ -117,5 +117,7 @@ public class StartVeicolo {
 		lMoto.forEach(row -> System.out.println(row));
 		List<BiciView> lB = new ViewControll().visualizzaBici();
 		lB.forEach(row -> System.out.println(row));
+		List<BiciView> lB2 = new ViewControll().visualizzaBiciWhere("numeroMarce","12");
+		lB2.forEach(row -> System.out.println(row));
 	}
 }

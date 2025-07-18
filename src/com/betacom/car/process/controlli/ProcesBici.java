@@ -72,10 +72,25 @@ public class ProcesBici extends GenericControl {
 			for (Map.Entry<String, Object> entry : map.entrySet()) {
 				if (entry.getKey().equals("numeroMarce") || entry.getKey().equals("tipoSospensioni")
 						|| entry.getKey().equals("pieghevole")) {
-					qryMacchina += entry.getKey() + "='" + entry.getValue() + "' , ";
+					if(entry.getKey().equals("tipoSospensioni")) {
+						qryVeicolo += entry.getKey() + "=" + db.findId("Sospensione", "nome", entry.getValue().toString()) + " , ";
+					} else {
+						qryMacchina += entry.getKey() + "='" + entry.getValue() + "' , ";
+					}
 				} else {
-					if (!entry.getKey().equals("id"))
-						qryVeicolo += entry.getKey() + "='" + entry.getValue() + "' , ";
+					if (!entry.getKey().equals("id")) {
+						if(entry.getKey().equals("marca")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Marca", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("colore")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Colore", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("categoria")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Categoria", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("alimentazione")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Alimentazione", "nome", entry.getValue().toString()) + " , ";
+						} else {
+							qryVeicolo += entry.getKey() + "='" + entry.getValue() + "' , ";
+						}
+					}
 				}
 			}
 			if (qryMacchina.endsWith(", ")) {

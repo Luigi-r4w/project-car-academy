@@ -81,8 +81,19 @@ public class ProcesMacchina extends GenericControl {
 				} else if (entry.getKey().equals("targa")) {
 					new TargaDAO().cambiaTarga(map.get("id").toString(), entry.getValue().toString(),"macchina");
 				} else {
-					if (!entry.getKey().equals("id"))
-						qryVeicolo += entry.getKey() + "='" + entry.getValue() + "' , ";
+					if (!entry.getKey().equals("id")) {
+						if(entry.getKey().equals("marca")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Marca", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("colore")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Colore", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("categoria")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Categoria", "nome", entry.getValue().toString()) + " , ";
+						} else if (entry.getKey().equals("alimentazione")) {
+							qryVeicolo += entry.getKey() + "=" + db.findId("Alimentazione", "nome", entry.getValue().toString()) + " , ";
+						} else {
+							qryVeicolo += entry.getKey() + "='" + entry.getValue() + "' , ";
+						}
+					}
 				}
 			}
 			if (qryMacchina.endsWith(", ")) {
